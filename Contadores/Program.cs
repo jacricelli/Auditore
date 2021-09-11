@@ -1,5 +1,8 @@
 ﻿namespace Contadores
 {
+    using CommandLine;
+    using CommandLine.Text;
+    using Contadores.Command;
     using Contadores.Config;
     using Newtonsoft.Json;
     using System;
@@ -16,6 +19,9 @@
         /// <param name="args">Los argumentos de la línea de comandos.</param>
         public static void Main(string[] args)
         {
+            SentenceBuilder.Factory = () => new LocalizableSentenceBuilder();
+            Parser.Default.ParseArguments<Options>(args)
+                .WithParsed(Run);
         }
 
         /// <summary>
@@ -37,6 +43,19 @@
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Recopila y almacena los contadores de los usuarios.
+        /// </summary>
+        /// <param name="options">Una instancia de <see cref="Options"/>.</param>
+        private static void Run(Options options)
+        {
+            var config = LoadConfigFile();
+            if (config == null)
+            {
+                return;
+            }
         }
     }
 }
