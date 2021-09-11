@@ -56,6 +56,9 @@
             {
                 return;
             }
+
+            Logger.Config.Verbose = true;
+            Logger.Config.Mail = config.Log.Mail;
         }
     }
 }

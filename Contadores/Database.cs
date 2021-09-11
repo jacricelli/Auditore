@@ -8,12 +8,12 @@
     public static class Database
     {
         /// <summary>
-        /// La conexión a la base de datos.
+        /// Una instancia de <see cref="SQLiteConnection"/>.
         /// </summary>
         private static SQLiteConnection connection;
 
         /// <summary>
-        /// La transacción activa.
+        /// Una instancia de <see cref="SQLiteTransaction"/>.
         /// </summary>
         private static SQLiteTransaction transaction;
 
@@ -68,7 +68,7 @@
         /// Obtiene una nueva instancia de <see cref="SQLiteCommand"/>.
         /// </summary>
         /// <param name="commandText">El texto de la consulta.</param>
-        /// <returns>Una nueva instancia de <see cref="SQLiteCommand"/>.</returns>
+        /// <returns>Una instancia de <see cref="SQLiteCommand"/>.</returns>
         public static SQLiteCommand GetSQLiteCommand(string commandText)
         {
             return new SQLiteCommand(commandText, connection, transaction);
