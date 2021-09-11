@@ -80,6 +80,7 @@
     <Compile Include="Config\LogConfig.cs" />
     <Compile Include="Config\LogMailConfig.cs" />
     <Compile Include="Config\PrinterConfig.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
