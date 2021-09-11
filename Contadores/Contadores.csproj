@@ -51,6 +51,9 @@
     <StartupObject>Contadores.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine, Version=2.8.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.2.8.0\lib\net461\CommandLine.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -64,6 +67,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\LocalizableSentenceBuilder.cs" />
+    <Compile Include="Command\StringBuilderExtensions.cs" />
+    <Compile Include="Command\StringExtensions.cs" />
     <Compile Include="Config\AppConfig.cs" />
     <Compile Include="Config\DatabaseConfig.cs" />
     <Compile Include="Config\LogConfig.cs" />
