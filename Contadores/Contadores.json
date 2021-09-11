@@ -1,0 +1,22 @@
+{
+	"database": {
+		"connectionString": ""
+	},
+	"log": {
+		"verbose": false,
+		"mail": {
+			"enabled": false,
+			"server": "",
+			"port": 25,
+			"from": "",
+			"to": "",
+			"subject": ""
+		}
+	},
+	"printer": {
+		"userName": "",
+		"password": "",
+		"httpClientTimeout": 8000,
+		"pingTimeout": 2000
+	}
+}
