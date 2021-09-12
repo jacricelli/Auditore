@@ -250,7 +250,7 @@
                             {
                                 Id = reader.GetInt32(0),
                                 Codigo = code,
-                                Usuario = reader.GetString(2)
+                                Usuario = reader.GetString(1)
                             };
                         }
                     }
