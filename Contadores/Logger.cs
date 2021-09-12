@@ -121,7 +121,7 @@
         {
             if (messages.Length > 0)
             {
-                if (Config.Mail.Enabled)
+                if (Config.Mail != null && Config.Mail.Enabled)
                 {
                     SendMail();
                 }
