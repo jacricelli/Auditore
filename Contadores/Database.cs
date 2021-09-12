@@ -1,5 +1,6 @@
 ﻿namespace Contadores
 {
+    using System;
     using System.Data.SQLite;
 
     /// <summary>
@@ -26,13 +27,23 @@
         /// Establece una conexión con la base de datos.
         /// </summary>
         /// <param name="connectionString">La cadena de conexión.</param>
-        public static void Open(string connectionString)
+        /// <returns>true si se ha establecido la conexión o false en caso contrario.</returns>
+        public static bool Open(string connectionString)
         {
-            if (connection == null)
+            try
             {
-                connection = new SQLiteConnection(connectionString);
-                connection.Open();
+                if (connection == null)
+                {
+                    connection = new SQLiteConnection(connectionString);
+                    connection.Open();
+                }
             }
+            catch (Exception ex)
+            {
+                Logger.Write(ex);
+            }
+
+            return IsConnected;
         }
 
         /// <summary>
