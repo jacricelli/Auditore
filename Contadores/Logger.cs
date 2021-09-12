@@ -190,7 +190,8 @@
         private static void WriteHeader()
         {
             var versionInfo = FileVersionInfo.GetVersionInfo(Process.GetCurrentProcess().MainModule.FileName);
-            Console.WriteLine($"{versionInfo.ProductName} v{versionInfo.ProductVersion}\n");
+            Console.WriteLine($"{versionInfo.ProductName} v{versionInfo.ProductVersion}");
+            Console.WriteLine($"{versionInfo.LegalCopyright}\n");
 
             headerWrited = true;
         }
