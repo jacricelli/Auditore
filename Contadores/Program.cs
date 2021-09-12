@@ -81,12 +81,12 @@
                             var storedCounter = !options.Force ? printer.Entity.Contador : -1;
                             if (currentCounter > storedCounter)
                             {
-                                Logger.Write($"Recopilando contadores...", Logger.MessageType.Info);
+                                Logger.Write("Recopilando contadores...", Logger.MessageType.Info);
 
                                 var userCounters = printer.GetUserCounters();
                                 if (userCounters?.Count > 0)
                                 {
-                                    Logger.Write($"Almacenando contadores...", Logger.MessageType.Info);
+                                    Logger.Write("Almacenando contadores...", Logger.MessageType.Info);
 
                                     Database.Begin();
                                     if (Database.StoreUserCounters(userCounters))
@@ -95,14 +95,14 @@
                                         {
                                             Database.Commit();
 
-                                            Logger.Write($"Se han actualizado los contadores.", Logger.MessageType.Info);
+                                            Logger.Write("Se han actualizado los contadores.", Logger.MessageType.Info);
 
                                             return;
                                         }
                                     }
                                     Database.Rollback();
 
-                                    Logger.Write($"No se han realizado cambios debido a un error interno.", Logger.MessageType.Info);
+                                    Logger.Write("No se han realizado cambios debido a un error interno.", Logger.MessageType.Info);
                                 }
                                 else
                                 {
@@ -111,7 +111,7 @@
                             }
                             else
                             {
-                                Logger.Write($"No es necesario actualizar los contadores.", Logger.MessageType.Info);
+                                Logger.Write("No es necesario actualizar los contadores.", Logger.MessageType.Info);
                             }
                         }
                         else

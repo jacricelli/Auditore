@@ -146,7 +146,7 @@
                             {
                                 if (last == null)
                                 {
-                                    Logger.Write($"El primer contador es nulo.", Logger.MessageType.Debug);
+                                    Logger.Write("El primer contador es nulo.", Logger.MessageType.Debug);
                                 }
                                 else
                                 {
@@ -174,7 +174,7 @@
         {
             try
             {
-                var commandText = $"SELECT `id`, `ip`, `contador` FROM `impresoras` WHERE `ip` = @ip LIMIT 1";
+                var commandText = "SELECT `id`, `ip`, `contador` FROM `impresoras` WHERE `ip` = @ip LIMIT 1";
                 using (var command = Database.GetSQLiteCommand(commandText))
                 {
                     command.Parameters.AddWithValue("@ip", address);
@@ -235,7 +235,7 @@
         {
             try
             {
-                var commandText = $"SELECT `id`, `usuario` FROM `usuarios` WHERE `codigo` = @codigo LIMIT 1";
+                var commandText = "SELECT `id`, `usuario` FROM `usuarios` WHERE `codigo` = @codigo LIMIT 1";
                 using (var command = Database.GetSQLiteCommand(commandText))
                 {
                     command.Parameters.AddWithValue("@codigo", code);
@@ -274,7 +274,7 @@
         {
             try
             {
-                var commandText = $"INSERT INTO `usuarios` (`codigo`, `usuario`, `timestamp`) VALUES (@codigo, @usuario, @timestamp)";
+                var commandText = "INSERT INTO `usuarios` (`codigo`, `usuario`, `timestamp`) VALUES (@codigo, @usuario, @timestamp)";
                 using (var command = Database.GetSQLiteCommand(commandText))
                 {
                     command.Parameters.AddWithValue("@codigo", code);

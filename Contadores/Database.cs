@@ -135,9 +135,9 @@
             {
                 var commandText = "INSERT INTO `contadores` " +
                     "(`impresora_id`, `usuario_id`, `fecha`, `hora`, `copiadora_bn`, `copiadora_color`, `impresora_bn`, `impresora_color`)" +
-                    $"VALUES (@impresora_id, @usuario_id, @fecha, @hora, @copiadora_bn, @copiadora_color, @impresora_bn, @impresora_color) " +
+                    "VALUES (@impresora_id, @usuario_id, @fecha, @hora, @copiadora_bn, @copiadora_color, @impresora_bn, @impresora_color) " +
                     "ON CONFLICT DO UPDATE SET " +
-                    $"`hora` = @hora, `copiadora_bn` = @copiadora_bn, `copiadora_color` = @copiadora_color, `impresora_bn` = @impresora_bn, `impresora_color` = @impresora_color";
+                    "`hora` = @hora, `copiadora_bn` = @copiadora_bn, `copiadora_color` = @copiadora_color, `impresora_bn` = @impresora_bn, `impresora_color` = @impresora_color";
 
                 using (var command = GetSQLiteCommand(commandText))
                 {
