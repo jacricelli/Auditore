@@ -8,12 +8,12 @@
     public static class Database
     {
         /// <summary>
-        /// Una instancia de <see cref="SQLiteConnection"/>.
+        /// Instancia de <see cref="SQLiteConnection"/>.
         /// </summary>
         private static SQLiteConnection connection;
 
         /// <summary>
-        /// Una instancia de <see cref="SQLiteTransaction"/>.
+        /// Instancia de <see cref="SQLiteTransaction"/>.
         /// </summary>
         private static SQLiteTransaction transaction;
 
@@ -37,8 +37,8 @@
 
         /// <summary>
         /// Cierra la conexión con la base de datos.
-        /// <param name="commitActiveTransaction">Si hay una transacción activa, indica si se confirma o cancela la transacción.</param>
         /// </summary>
+        /// <param name="commitActiveTransaction">Si hay una transacción activa, indica si se confirma o cancela la transacción.</param>
         public static void Close(bool commitActiveTransaction = true)
         {
             if (connection != null)

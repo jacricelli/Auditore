@@ -1,7 +1,7 @@
 ﻿namespace Contadores.Config
 {
     /// <summary>
-    /// Configuración de la base de datos.
+    /// Configuración para la base de datos.
     /// </summary>
     public class DatabaseConfig
     {

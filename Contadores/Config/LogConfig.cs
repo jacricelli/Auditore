@@ -1,7 +1,7 @@
 ﻿namespace Contadores.Config
 {
     /// <summary>
-    /// Configuración del registro de mensajes.
+    /// Configuración para el registro de mensajes.
     /// </summary>
     public class LogConfig
     {
@@ -11,7 +11,7 @@
         public bool Verbose { get; set; }
 
         /// <summary>
-        /// Obtiene o establece la configuración del envío de correo electrónico.
+        /// Obtiene o establece la configuración para el envío de correo electrónico.
         /// </summary>
         public LogMailConfig Mail { get; set; }
     }

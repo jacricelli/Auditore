@@ -10,10 +10,10 @@
         /// <summary>
         /// Anexa uno o más valores cuando se cumple la condición especificada.
         /// </summary>
-        /// <param name="builder">Instancia de <see cref="StringBuilder"/>.</param>
-        /// <param name="condition">Condición.</param>
-        /// <param name="values">Arreglo de valores.</param>
-        /// <returns>Instancia de <see cref="StringBuilder"/>.</returns>
+        /// <param name="builder">Una instancia de <see cref="StringBuilder"/>.</param>
+        /// <param name="condition">La condición.</param>
+        /// <param name="values">Un arreglo de valores.</param>
+        /// <returns>Una instancia de <see cref="StringBuilder"/>.</returns>
         public static StringBuilder AppendWhen(this StringBuilder builder, bool condition, params string[] values)
         {
             if (condition)
@@ -30,11 +30,11 @@
         /// <summary>
         /// Anexa un valor de acuerdo a la condición especificada.
         /// </summary>
-        /// <param name="builder">Instancia de <see cref="StringBuilder"/>.</param>
-        /// <param name="condition">Condición.</param>
-        /// <param name="ifTrue">Valor a anexar si la condición es verdadera.</param>
-        /// <param name="ifFalse">Valor a anexar si la condición es falsa.</param>
-        /// <returns>Instancia de <see cref="StringBuilder"/>.</returns>
+        /// <param name="builder">Una instancia de <see cref="StringBuilder"/>.</param>
+        /// <param name="condition">La condición.</param>
+        /// <param name="ifTrue">Un valor a anexar si la condición es verdadera.</param>
+        /// <param name="ifFalse">Un valor a anexar si la condición es falsa.</param>
+        /// <returns>Una instancia de <see cref="StringBuilder"/>.</returns>
         public static StringBuilder AppendIf(this StringBuilder builder, bool condition, string ifTrue, string ifFalse)
         {
             return condition

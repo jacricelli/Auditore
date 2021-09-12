@@ -1,7 +1,7 @@
 ﻿namespace Contadores.Config
 {
     /// <summary>
-    /// Configuración del envío de correo electrónico.
+    /// Configuración para el envío de correo electrónico.
     /// </summary>
     public class LogMailConfig
     {
@@ -16,7 +16,7 @@
         public string Server { get; set; }
 
         /// <summary>
-        /// Obtiene o establece el puerto servidor SMTP.
+        /// Obtiene o establece el puerto del servidor SMTP.
         /// </summary>
         public int Port { get; set; }
 

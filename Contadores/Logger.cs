@@ -13,28 +13,28 @@
     public static class Logger
     {
         /// <summary>
-        /// Los tipos de mensajes.
+        /// Tipos de mensajes.
         /// </summary>
         public enum MessageType : ushort
         {
             /// <summary>
-            /// Un mensaje de depuración.
+            /// Mensaje de depuración.
             /// </summary>
             Debug,
 
             /// <summary>
-            /// Un mensaje de error.
+            /// Mensaje de error.
             /// </summary>
             Error,
 
             /// <summary>
-            /// Un mensaje de información.
+            /// Mensaje de información.
             /// </summary>
             Info
         }
 
         /// <summary>
-        /// Los mensajes.
+        /// Mensajes.
         /// </summary>
         private static readonly StringBuilder messages = new StringBuilder();
 
@@ -44,7 +44,7 @@
         private static bool headerWrited = false;
 
         /// <summary>
-        /// Una instancia de <see cref="LogConfig"/>.
+        /// Obtiene la configuración del registro de mensajes.
         /// </summary>
         public static LogConfig Config { get; private set; } = new LogConfig();
 

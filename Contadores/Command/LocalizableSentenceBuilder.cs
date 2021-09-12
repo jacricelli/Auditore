@@ -8,7 +8,7 @@
     using CommandLine.Text;
 
     /// <summary>
-    /// Generador de oraciones localizable.
+    /// Generador de oraciones localizables.
     /// </summary>
     public class LocalizableSentenceBuilder : SentenceBuilder
     {
