@@ -84,8 +84,12 @@
     <Compile Include="Config\LogMailConfig.cs" />
     <Compile Include="Config\PrinterConfig.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="Entity\ContadorEntity.cs" />
+    <Compile Include="Entity\ImpresoraEntity.cs" />
+    <Compile Include="Entity\UsuarioEntity.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Options.cs" />
+    <Compile Include="Printer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util.cs" />

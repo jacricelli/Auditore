@@ -1,6 +1,8 @@
 ﻿namespace Contadores
 {
+    using Contadores.Entity;
     using System;
+    using System.Collections.Generic;
     using System.Data.SQLite;
 
     /// <summary>
@@ -120,6 +122,83 @@
                 transaction.Dispose();
                 transaction = null;
             }
+        }
+
+        /// <summary>
+        /// Almacena los contadores de los usuarios.
+        /// </summary>
+        /// <param name="userCounters">Una lista de <see cref="ContadorEntity"/>.</param>
+        /// <returns>true si se han almacenado los contadores o false en caso contrario.</returns>
+        internal static bool StoreUserCounters(List<ContadorEntity> userCounters)
+        {
+            try
+            {
+                var commandText = "INSERT INTO `contadores` " +
+                    "(`impresora_id`, `usuario_id`, `fecha`, `hora`, `copiadora_bn`, `copiadora_color`, `impresora_bn`, `impresora_color`)" +
+                    $"VALUES (@impresora_id, @usuario_id, @fecha, @hora, @copiadora_bn, @copiadora_color, @impresora_bn, @impresora_color) " +
+                    "ON CONFLICT DO UPDATE SET " +
+                    $"`hora` = @hora, `copiadora_bn` = @copiadora_bn, `copiadora_color` = @copiadora_color, `impresora_bn` = @impresora_bn, `impresora_color` = @impresora_color";
+
+                using (var command = GetSQLiteCommand(commandText))
+                {
+                    foreach (var userCounter in userCounters)
+                    {
+                        command.Parameters.AddWithValue("@impresora_id", userCounter.Impresora.Id);
+                        command.Parameters.AddWithValue("@usuario_id", userCounter.Usuario.Id);
+                        command.Parameters.AddWithValue("@fecha", userCounter.Fecha.ToString("yyyy-MM-dd"));
+                        command.Parameters.AddWithValue("@hora", userCounter.Fecha.ToString("HH:mm:ss"));
+                        command.Parameters.AddWithValue("@copiadora_bn", userCounter.CopiadoraBn);
+                        command.Parameters.AddWithValue("@copiadora_color", userCounter.CopiadoraColor);
+                        command.Parameters.AddWithValue("@impresora_bn", userCounter.ImpresoraBn);
+                        command.Parameters.AddWithValue("@impresora_color", userCounter.ImpresoraColor);
+
+                        if (command.ExecuteNonQuery() != 1)
+                        {
+                            Logger.Write("La consulta de inserción/actualización de contador no produjo cambios.", Logger.MessageType.Debug);
+
+                            return false;
+                        }
+                        
+                        command.Parameters.Clear();
+                    }
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(ex);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Establece el contador de la impresora.
+        /// </summary>
+        /// <param name="printer">Una instancia de <see cref="ImpresoraEntity"/>.</param>
+        /// <param name="counter">El contador.</param>
+        /// <returns>true si se ha establecido el contador o false en caso contrario.</returns>
+        internal static bool SetPrinterCounter(ImpresoraEntity printer, int counter)
+        {
+            try
+            {
+                var commandText = "UPDATE `impresoras` SET `contador` = @contador, `timestamp` = @timestamp WHERE `id` = @id";
+                using (var command = GetSQLiteCommand(commandText))
+                {
+                    command.Parameters.AddWithValue("@contador", counter);
+                    command.Parameters.AddWithValue("@id", printer.Id);
+                    command.Parameters.AddWithValue("@timestamp", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                    return command.ExecuteNonQuery() == 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Write(ex);
+            }
+
+            return false;
         }
     }
 }
