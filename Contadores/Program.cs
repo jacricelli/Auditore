@@ -29,6 +29,7 @@
                     var options = (Options)result.GetType().GetProperty("Value").GetValue(result, null);
 
                     Logger.Config.Mail = config.Log.Mail;
+                    Logger.Config.Mail.Subject = $"Problemas con la recopilación de contadores ({options.Address}).";
                     Logger.Config.Verbose = options.Verbose;
 
                     Run(config, options);
