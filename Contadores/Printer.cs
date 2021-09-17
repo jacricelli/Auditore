@@ -74,16 +74,23 @@
             {
                 using (var client = new HttpClient() { Timeout = TimeSpan.FromMilliseconds(config.HttpClientTimeout) })
                 {
-                    var html = client.GetStringAsync($"http://{address}/web/guest/es/websys/status/getUnificationCounter.cgi").Result;
-                    var pattern = new Regex("<td nowrap align=\"left\">Total</td><td nowrap>:</td><td nowrap>(\\d+)</td>", RegexOptions.IgnoreCase);
-                    var matches = pattern.Matches(html);
-                    if (matches.Count > 0)
+                    using (var response = client.GetAsync($"http://{address}/web/guest/es/websys/status/getUnificationCounter.cgi").Result)
                     {
-                        return int.Parse(matches[0].Groups[1].Value);
-                    }
-                    else
-                    {
-                        Logger.Write("No se pudo obtener el contador de la impresora.", Logger.MessageType.Debug);
+                        using (var content = response.Content)
+                        {
+                            var html = content.ReadAsStringAsync().Result;
+                            var pattern = new Regex("<td nowrap align=\"left\">Total</td><td nowrap>:</td><td nowrap>(\\d+)</td>", RegexOptions.IgnoreCase);
+                            var matches = pattern.Matches(html);
+
+                            if (matches.Count > 0)
+                            {
+                                return int.Parse(matches[0].Groups[1].Value);
+                            }
+                            else
+                            {
+                                Logger.Write("No se pudo obtener el contador de la impresora.", Logger.MessageType.Debug);
+                            }
+                        }
                     }
                 }
             }
