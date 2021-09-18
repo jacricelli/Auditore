@@ -72,57 +72,50 @@
                 var printer = new Printer(options.Address, config.Printer);
                 if (printer.Entity != null)
                 {
-                    if (printer.IsOnline())
+                    var currentCounter = printer.GetCurrentCounter();
+                    if (currentCounter > 0)
                     {
-                        var currentCounter = printer.GetCurrentCounter();
-                        if (currentCounter > 0)
+                        Logger.Write($"El contador de la impresora es: {currentCounter}", Logger.MessageType.Info);
+
+                        var storedCounter = !options.Force ? printer.Entity.Contador : -1;
+                        if (currentCounter > storedCounter)
                         {
-                            Logger.Write($"El contador de la impresora es: {currentCounter}", Logger.MessageType.Info);
+                            Logger.Write("Recopilando contadores...", Logger.MessageType.Info);
 
-                            var storedCounter = !options.Force ? printer.Entity.Contador : -1;
-                            if (currentCounter > storedCounter)
+                            var userCounters = printer.GetUserCounters();
+                            if (userCounters?.Count > 0)
                             {
-                                Logger.Write("Recopilando contadores...", Logger.MessageType.Info);
+                                Logger.Write("Almacenando contadores...", Logger.MessageType.Info);
 
-                                var userCounters = printer.GetUserCounters();
-                                if (userCounters?.Count > 0)
+                                Database.Begin();
+                                if (Database.StoreUserCounters(userCounters))
                                 {
-                                    Logger.Write("Almacenando contadores...", Logger.MessageType.Info);
-
-                                    Database.Begin();
-                                    if (Database.StoreUserCounters(userCounters))
+                                    if (Database.SetPrinterCounter(printer.Entity, currentCounter))
                                     {
-                                        if (Database.SetPrinterCounter(printer.Entity, currentCounter))
-                                        {
-                                            Database.Commit();
+                                        Database.Commit();
 
-                                            Logger.Write("Se han actualizado los contadores.", Logger.MessageType.Info);
+                                        Logger.Write("Se han actualizado los contadores.", Logger.MessageType.Info);
 
-                                            return;
-                                        }
+                                        return;
                                     }
-                                    Database.Rollback();
+                                }
+                                Database.Rollback();
 
-                                    Logger.Write("No se han realizado cambios debido a un error interno.", Logger.MessageType.Info);
-                                }
-                                else
-                                {
-                                    Logger.Write("Se produjo un error al obtener los contadores o no hay usuarios registrados en la impresora.", Logger.MessageType.Info);
-                                }
+                                Logger.Write("No se han realizado cambios debido a un error interno.", Logger.MessageType.Info);
                             }
                             else
                             {
-                                Logger.Write("No es necesario actualizar los contadores.", Logger.MessageType.Info);
+                                Logger.Write("Se produjo un error al obtener los contadores o no hay usuarios registrados en la impresora.", Logger.MessageType.Info);
                             }
                         }
                         else
                         {
-                            Logger.Write("No fue posible obtener el contador de la impresora o el valor obtenido es menor o igual a cero.", Logger.MessageType.Info);
+                            Logger.Write("No es necesario actualizar los contadores.", Logger.MessageType.Info);
                         }
                     }
                     else
                     {
-                        Logger.Write("La impresora no se encuentra en línea.", Logger.MessageType.Info);
+                        Logger.Write("No fue posible obtener el contador de la impresora o el valor obtenido es menor o igual a cero.", Logger.MessageType.Info);
                     }
                 }
                 else

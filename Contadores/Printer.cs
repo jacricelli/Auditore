@@ -7,7 +7,6 @@
     using SnmpSharpNet;
     using System;
     using System.Collections.Generic;
-    using System.Net.NetworkInformation;
 
     /// <summary>
     /// Impresora.
@@ -40,27 +39,6 @@
             this.config = config;
 
             SetEntity();
-        }
-
-        /// <summary>
-        /// Comprueba si la impresora está en línea.
-        /// </summary>
-        /// <returns>true si hay una respuesta o false en caso contrario.</returns>
-        internal bool IsOnline()
-        {
-            try
-            {
-                using (var ping = new Ping())
-                {
-                    return ping.Send(address, config.PingTimeout).Status == IPStatus.Success;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Write(ex);
-            }
-
-            return false;
         }
 
         /// <summary>
