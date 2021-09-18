@@ -4,11 +4,10 @@
     using Contadores.Entity;
     using Ricoh;
     using Ricoh.Models;
+    using SnmpSharpNet;
     using System;
     using System.Collections.Generic;
-    using System.Net.Http;
     using System.Net.NetworkInformation;
-    using System.Text.RegularExpressions;
 
     /// <summary>
     /// Impresora.
@@ -72,25 +71,13 @@
         {
             try
             {
-                using (var client = new HttpClient() { Timeout = TimeSpan.FromMilliseconds(config.HttpClientTimeout) })
+                var client = new SimpleSnmp(address, config.SnmpCommunity);
+                var result = client.Get(SnmpVersion.Ver1, new string[] { "1.3.6.1.2.1.43.10.2.1.4.1.1" });
+                if (result?.Count == 1)
                 {
-                    using (var response = client.GetAsync($"http://{address}/web/guest/es/websys/status/getUnificationCounter.cgi").Result)
+                    foreach (var kvp in result)
                     {
-                        using (var content = response.Content)
-                        {
-                            var html = content.ReadAsStringAsync().Result;
-                            var pattern = new Regex("<td nowrap align=\"left\">Total</td><td nowrap>:</td><td nowrap>(\\d+)</td>", RegexOptions.IgnoreCase);
-                            var matches = pattern.Matches(html);
-
-                            if (matches.Count > 0)
-                            {
-                                return int.Parse(matches[0].Groups[1].Value);
-                            }
-                            else
-                            {
-                                Logger.Write("No se pudo obtener el contador de la impresora.", Logger.MessageType.Debug);
-                            }
-                        }
+                        return int.Parse(kvp.Value.ToString());
                     }
                 }
             }

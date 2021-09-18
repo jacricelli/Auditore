@@ -16,7 +16,7 @@
 	"printer": {
 		"userName": "",
 		"password": "",
-		"httpClientTimeout": 8000,
+		"snmpCommunity": "public",
 		"pingTimeout": 2000
 	}
 }

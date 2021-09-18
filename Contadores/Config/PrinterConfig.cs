@@ -16,9 +16,9 @@
         public string Password { get; set; }
 
         /// <summary>
-        /// Obtiene o establece el tiempo máximo de espera (en milisegundos) para el cliente HTTP.
+        /// Obtiene o establece la comunidad de SNMP.
         /// </summary>
-        public int HttpClientTimeout { get; set; }
+        public string SnmpCommunity { get; set; }
 
         /// <summary>
         /// Obtiene o establece el tiempo máximo de espera (en milisegundos) para la utilidad Ping.
